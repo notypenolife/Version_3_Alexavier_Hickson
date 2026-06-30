@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Navigation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Introduction</a>
+        <a href="academic.html">Academic</a>
+        <a href="navigation.html">Navigation</a>
+        <a href="support.html">Support</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <h1>Campus Navigation</h1>
+
+        <p>Use the maps below to find your way around King's College, or search for a place to get a simple direction description.</p>
+
+        <section class="search-panel" aria-labelledby="search-title">
+            <h2 id="search-title">Find a Place</h2>
+            <div class="search-row">
+                <input id="destinationSearch" type="search" placeholder="Search library, chapel, dining hall..." aria-label="Search for a campus destination">
+                <button type="button" id="searchButton">Search</button>
+            </div>
+            <p id="searchResult" class="search-result">Try searching for library, chapel, dining hall, reception, gym, science block, or boarding house.</p>
+        </section>
+
+        <section class="map-grid" aria-label="King's College maps">
+            <figure>
+                <img src="King's map.png" alt="King's College campus map">
+                <figcaption>King's College Campus Map</figcaption>
+            </figure>
+            <figure>
+                <img src="King's grounds map.png" alt="King's College grounds map">
+                <figcaption>King's College Grounds Map</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 King's College Student Start. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const directions = {
+            library: "To get to the library, start from the main reception area and follow the central pathway toward the academic buildings. Look for the library signs near the main classroom block.",
+            chapel: "To get to the chapel, walk from the main entrance toward the heart of the campus. The chapel is a key landmark and is usually easy to spot from the central grounds.",
+            "dining hall": "To get to the dining hall, head toward the main student gathering area and follow signs for food or dining. It is close to the main school facilities.",
+            reception: "To get to reception, go to the main entrance of King's College. Reception is the first place to visit if you need help or directions.",
+            gym: "To get to the gym, follow the pathway toward the sports facilities and fields. Look for the large indoor sports building.",
+            "science block": "To get to the science block, head toward the academic classroom area and look for the building signs for science labs and classrooms.",
+            "boarding house": "To get to the boarding houses, follow the campus paths away from the main classroom area toward the residential buildings. Ask reception if you need the exact house.",
+            fields: "To get to the fields, walk toward the open grounds and sports area. The grounds map can help you choose the closest path.",
+            pool: "To get to the pool, head toward the sports facilities. Look for signs near the gym and outdoor activity areas."
+        };
+
+        const searchInput = document.getElementById("destinationSearch");
+        const searchButton = document.getElementById("searchButton");
+        const searchResult = document.getElementById("searchResult");
+
+        function searchDestination() {
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (!query) {
+                searchResult.textContent = "Type a place name first, then press Search.";
+                return;
+            }
+
+            const match = Object.keys(directions).find((place) => query.includes(place) || place.includes(query));
+            searchResult.textContent = match
+                ? directions[match]
+                : "I do not have directions for that place yet. Try searching for library, chapel, dining hall, reception, gym, science block, or boarding house.";
+        }
+
+        searchButton.addEventListener("click", searchDestination);
+        searchInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                searchDestination();
+            }
+        });
+    </script>
+
+</body>
+</html>
